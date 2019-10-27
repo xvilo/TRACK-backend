@@ -21,4 +21,7 @@
 		# the cache url automatically changes with a files content
 		# to ensure optimum caching.
 		RewriteRule ^(cache-[a-zA-Z0-9]{6,32}/)(.*)$ ${unescape-chars:$2} [QSA,L]
+
+		# Enable Authorisation header for apache
+		RewriteRule .* - [env=HTTP_AUTHORIZATION:%{HTTP:Authorization},last]
 	</IfModule>

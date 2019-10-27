@@ -27,3 +27,12 @@ services:
     # please note that last definitions always *replace* previous ones
     sensio_framework_extra.view.listener:
         alias: Sensio\Bundle\FrameworkExtraBundle\EventListener\TemplateListener
+
+    App\Controller\SecurityController:
+        tags: ['controller.service_arguments']
+        arguments:
+            $eventDispatcher: '@event_dispatcher'
+            $formFactory: '@fos_user.registration.form.factory'
+            $userManager: '@fos_user.user_manager'
+            $jwtManager: '@lexik_jwt_authentication.jwt_manager'
+            $translator: '@translator'

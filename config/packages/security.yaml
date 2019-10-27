@@ -5,31 +5,24 @@ security:
             id: fos_user.user_provider.username
 
     firewalls:
-        oauth_token:
-            pattern:    ^/oauth/v2/token
-            security:   false
-        oauth_authorize:
-            pattern:    ^/oauth/v2/auth
-            form_login:
-                provider: fos_userbundle
-                check_path: /oauth/v2/auth_login_check
-                login_path: /oauth/v2/auth_login
-                use_referer: true
-        api:
-            pattern:    ^/api
-            fos_oauth:  true
-            stateless:  true
-            anonymous:  false
-        main:
-            pattern: ^/
-            form_login:
-                provider: fos_userbundle
-                csrf_token_generator: security.csrf.token_manager
+        login:
+            pattern:  ^/api/login
+            stateless: true
             anonymous: true
+            json_login:
+                check_path:               /api/login_check
+                success_handler:          lexik_jwt_authentication.handler.authentication_success
+                failure_handler:          lexik_jwt_authentication.handler.authentication_failure
+        api:
+            pattern:   ^/api
+            stateless: true
+            guard:
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator
 
     access_control:
-        - { path: ^/api, roles: [ IS_AUTHENTICATED_FULLY ] }
-        - { path: ^/createClient, roles: [ IS_AUTHENTICATED_ANONYMOUSLY ] }
+        - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
 
     encoders:
         FOS\UserBundle\Model\UserInterface: bcrypt
