@@ -9,6 +9,7 @@
         "friendsofsymfony/rest-bundle": "^2.6",
         "friendsofsymfony/user-bundle": "^2.1",
         "jms/serializer-bundle": "^3.4",
+        "lexik/jwt-authentication-bundle": "^2.6",
         "sensio/framework-extra-bundle": "^5.5",
         "symfony/apache-pack": "^1.0",
         "symfony/asset": "4.3.*",

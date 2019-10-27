@@ -13,6 +13,7 @@ class HealthController extends AbstractFOSRestController
      * Show health.
      * @Rest\Get("/health")
      * @Rest\Get("/")
+     * @Rest\Get("/api/health")
      *
      * @return Response
      */
